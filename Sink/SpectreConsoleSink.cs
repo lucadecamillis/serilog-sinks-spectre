@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using sconsole.Sink.Renderers;
 using Serilog.Core;
@@ -7,7 +6,6 @@ using Serilog.Events;
 using Serilog.Formatting.Display;
 using Serilog.Parsing;
 using Serilog.Sinks.SpectreConsole.Sink.Extensions;
-using Spectre.Console;
 using Spectre.Console.Rendering;
 
 namespace sconsole.Sink
@@ -23,14 +21,16 @@ namespace sconsole.Sink
 
 		public void Emit(LogEvent logEvent)
 		{
-			var output = new StringWriter();
-
+			// Create renderable objects for each
+			// defined token
 			IRenderable[] items = this.renderers
 				.SelectMany(r => r.Render(logEvent))
 				.ToArray();
 
+			// Join all renderable objects
 			RenderableCollection collection = new RenderableCollection(items);
 
+			// Write them to the console
 			Spectre.Console.AnsiConsole.Write(collection);
 		}
 
