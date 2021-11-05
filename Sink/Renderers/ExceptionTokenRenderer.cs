@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using Serilog.Events;
 using Spectre.Console;
@@ -7,11 +8,11 @@ namespace sconsole.Sink.Renderers
 {
 	public class ExceptionTokenRenderer : ITemplateTokenRenderer
 	{
-		public void Render(LogEvent logEvent, TextWriter output, IAnsiConsole ansiConsole)
+		public IEnumerable<IRenderable> Render(LogEvent logEvent)
 		{
 			if (logEvent.Exception != null)
 			{
-				ansiConsole.WriteException(logEvent.Exception);
+				yield return logEvent.Exception.GetRenderable(ExceptionFormats.Default);
 			}
 		}
 	}

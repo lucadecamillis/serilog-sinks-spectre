@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.IO;
 using Serilog.Events;
 using Serilog.Parsing;
 using Spectre.Console;
+using Spectre.Console.Rendering;
 
 namespace sconsole.Sink.Renderers
 {
@@ -13,11 +15,12 @@ namespace sconsole.Sink.Renderers
 		{
 			this.token = token;
 		}
-
-		public void Render(LogEvent logEvent, TextWriter output, IAnsiConsole ansiConsole)
+		
+		public IEnumerable<IRenderable> Render(LogEvent logEvent)
 		{
-			var sv = new ScalarValue(logEvent.Timestamp);
-			sv.Render(output, this.token.Format);
+			yield return new Text(
+				logEvent.Timestamp.ToString(this.token.Format),
+				Spectre.Console.Style.Plain);
 		}
 	}
 }

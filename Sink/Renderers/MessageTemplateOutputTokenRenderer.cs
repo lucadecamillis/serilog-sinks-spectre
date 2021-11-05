@@ -1,8 +1,9 @@
-using System.IO;
+using System.Collections.Generic;
 using sconsole.Sink.Extensions;
 using Serilog.Events;
 using Serilog.Parsing;
 using Spectre.Console;
+using Spectre.Console.Rendering;
 
 namespace sconsole.Sink.Renderers
 {
@@ -15,24 +16,27 @@ namespace sconsole.Sink.Renderers
 			this.token = token;
 		}
 
-		public void Render(LogEvent logEvent, TextWriter output, IAnsiConsole ansiConsole)
+		public IEnumerable<IRenderable> Render(LogEvent logEvent)
 		{
 			foreach (MessageTemplateToken token in logEvent.MessageTemplate.Tokens)
 			{
 				if (token is TextToken t)
 				{
 					// Render text
-					output.Write(t.Text);
+					yield return new Text(t.Text, Spectre.Console.Style.Plain);
 				}
 
 				if (token is PropertyToken p)
 				{
-					RenderProperty(logEvent, p, ansiConsole);
+					foreach(IRenderable pr in RenderProperty(logEvent, p))
+					{
+						yield return pr;
+					}
 				}
 			}
 		}
 
-		private void RenderProperty(LogEvent logEvent, PropertyToken token, IAnsiConsole ansiConsole)
+		private IEnumerable<IRenderable> RenderProperty(LogEvent logEvent, PropertyToken token)
 		{
 			if (logEvent.Properties.ContainsKey(token.PropertyName))
 			{
@@ -41,7 +45,7 @@ namespace sconsole.Sink.Renderers
 					.Exec(Markup.Escape)
 					.Exec(Style.DefaultStyle.HighlightProp);
 
-				ansiConsole.Markup(propValue);
+				yield return new Markup(propValue);
 			}
 		}
 	}

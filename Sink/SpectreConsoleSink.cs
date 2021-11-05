@@ -6,7 +6,9 @@ using Serilog.Core;
 using Serilog.Events;
 using Serilog.Formatting.Display;
 using Serilog.Parsing;
+using Serilog.Sinks.SpectreConsole.Sink.Extensions;
 using Spectre.Console;
+using Spectre.Console.Rendering;
 
 namespace sconsole.Sink
 {
@@ -23,23 +25,13 @@ namespace sconsole.Sink
 		{
 			var output = new StringWriter();
 
-			AnsiConsoleSettings consoleSettings = new AnsiConsoleSettings
-			{
-				ColorSystem = ColorSystemSupport.Detect,
-        		Interactive = InteractionSupport.No,
-        		Out = new AnsiConsoleOutput(output)
-			};
+			IRenderable[] items = this.renderers
+				.SelectMany(r => r.Render(logEvent))
+				.ToArray();
 
-			IAnsiConsole ansiConsole = AnsiConsole.Create(consoleSettings);
+			RenderableCollection collection = new RenderableCollection(items);
 
-			foreach (ITemplateTokenRenderer renderer in this.renderers)
-			{
-				renderer.Render(logEvent, output, ansiConsole);
-			}
-
-			output.Flush();
-			string result = output.ToString();
-			Spectre.Console.AnsiConsole.Write(result);
+			Spectre.Console.AnsiConsole.Write(collection);
 		}
 
 		private static IEnumerable<ITemplateTokenRenderer> InitializeRenders(string outputTemplate)
@@ -81,15 +73,15 @@ namespace sconsole.Sink
 		{
 			renderer = propertyToken.PropertyName switch
 			{
-				OutputProperties.LevelPropertyName => 
+				OutputProperties.LevelPropertyName =>
 					new LevelTokenRenderer(propertyToken),
-				OutputProperties.NewLinePropertyName => 
+				OutputProperties.NewLinePropertyName =>
 					new NewLineTokenRenderer(),
-				OutputProperties.ExceptionPropertyName => 
+				OutputProperties.ExceptionPropertyName =>
 					new ExceptionTokenRenderer(),
-				OutputProperties.MessagePropertyName => 
+				OutputProperties.MessagePropertyName =>
 					new MessageTemplateOutputTokenRenderer(propertyToken),
-				OutputProperties.TimestampPropertyName => 
+				OutputProperties.TimestampPropertyName =>
 					new TimestampTokenRenderer(propertyToken),
 				_ =>
 					new PropertyTemplateRenderer(propertyToken)

@@ -1,14 +1,15 @@
-using System.IO;
+using System.Collections.Generic;
 using Serilog.Events;
 using Spectre.Console;
+using Spectre.Console.Rendering;
 
 namespace sconsole.Sink.Renderers
 {
 	public class NewLineTokenRenderer : ITemplateTokenRenderer
 	{
-		public void Render(LogEvent logEvent, TextWriter output, IAnsiConsole ansiConsole)
+		public IEnumerable<IRenderable> Render(LogEvent logEvent)
 		{
-            output.WriteLine();
+			yield return Text.NewLine;
 		}
 	}
 }

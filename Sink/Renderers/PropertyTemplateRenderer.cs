@@ -1,9 +1,10 @@
-using System.IO;
+using System.Collections.Generic;
 using System.Linq;
 using sconsole.Sink.Extensions;
 using Serilog.Events;
 using Serilog.Parsing;
 using Spectre.Console;
+using Spectre.Console.Rendering;
 
 namespace sconsole.Sink.Renderers
 {
@@ -16,16 +17,16 @@ namespace sconsole.Sink.Renderers
 			this.token = token;
 		}
 
-		public void Render(LogEvent logEvent, TextWriter output, IAnsiConsole ansiConsole)
+		public IEnumerable<IRenderable> Render(LogEvent logEvent)
 		{
-            var value = new StructureValue(logEvent.Properties
+			var value = new StructureValue(logEvent.Properties
                 .Select(p => new LogEventProperty(p.Key, p.Value)));
 
             string propValue = value.ToString()
                 .Exec(Markup.Escape)
                 .Exec(Style.DefaultStyle.HighlightMuted);
 
-            ansiConsole.Markup(propValue);
+			yield return new Markup(propValue);
 		}
 	}
 }

@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.IO;
 using Serilog.Events;
 using Serilog.Parsing;
 using Spectre.Console;
+using Spectre.Console.Rendering;
 
 namespace sconsole.Sink.Renderers
 {
@@ -13,8 +15,8 @@ namespace sconsole.Sink.Renderers
 		{
 			this.token = token;
 		}
-
-		public void Render(LogEvent logEvent, TextWriter output, IAnsiConsole ansiConsole)
+		
+		public IEnumerable<IRenderable> Render(LogEvent logEvent)
 		{
 			string levelMoniker = Style.LevelOutputFormat.GetLevelMoniker(
 				logEvent.Level,
@@ -31,7 +33,7 @@ namespace sconsole.Sink.Renderers
 				_ => levelMoniker
 			};
 
-			ansiConsole.Markup(formatMoniker);
+			yield return new Markup(formatMoniker);
 		}
 	}
 }
