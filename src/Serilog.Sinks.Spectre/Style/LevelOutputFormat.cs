@@ -1,7 +1,7 @@
 using System;
 using Serilog.Events;
 
-namespace sconsole.Sink.Style
+namespace Serilog.Sinks.Spectre.Style
 {
 	/// <summary>
 	/// Implements the {Level} element.

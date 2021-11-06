@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using System.IO;
 using Serilog.Events;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 
-namespace sconsole.Sink.Renderers
+namespace Serilog.Sinks.Spectre.Renderers
 {
 	public class ExceptionTokenRenderer : ITemplateTokenRenderer
 	{

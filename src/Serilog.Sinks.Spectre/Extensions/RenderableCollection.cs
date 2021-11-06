@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Spectre.Console.Rendering;
 
-namespace Serilog.Sinks.SpectreConsole.Sink.Extensions
+namespace Serilog.Sinks.Spectre.Extensions
 {
 	/// <summary>
 	/// Create a <see cref="IRenderable"/> object as collection of sub-renderables

@@ -1,10 +1,8 @@
 ﻿using Serilog;
 using Serilog.Core;
 using Microsoft.Extensions.Logging;
-using sconsole.Sink;
-using sconsole.Lib;
 
-namespace sconsole
+namespace Serilog.Sinks.Spectre.Demo
 {
 	class Program
 	{
@@ -27,7 +25,7 @@ namespace sconsole
 
 			logger.LogInformation("Done with the space library");
 		}
-		
+
 		private static Logger ConfigureLogger()
 		{
 			return new LoggerConfiguration()

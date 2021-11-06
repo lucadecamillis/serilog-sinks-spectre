@@ -1,16 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
-using sconsole.Sink.Extensions;
 using Serilog.Events;
 using Serilog.Parsing;
+using Serilog.Sinks.Spectre.Extensions;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 
-namespace sconsole.Sink.Renderers
+namespace Serilog.Sinks.Spectre.Renderers
 {
 	public class PropertyTemplateRenderer : ITemplateTokenRenderer
 	{
-        readonly PropertyToken token;
+		readonly PropertyToken token;
 
 		public PropertyTemplateRenderer(PropertyToken token)
 		{
@@ -20,11 +20,11 @@ namespace sconsole.Sink.Renderers
 		public IEnumerable<IRenderable> Render(LogEvent logEvent)
 		{
 			var value = new StructureValue(logEvent.Properties
-                .Select(p => new LogEventProperty(p.Key, p.Value)));
+				.Select(p => new LogEventProperty(p.Key, p.Value)));
 
-            string propValue = value.ToString()
-                .Exec(Markup.Escape)
-                .Exec(Style.DefaultStyle.HighlightMuted);
+			string propValue = value.ToString()
+				.Exec(Markup.Escape)
+				.Exec(Style.DefaultStyle.HighlightMuted);
 
 			yield return new Markup(propValue);
 		}

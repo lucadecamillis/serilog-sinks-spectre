@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 
-namespace sconsole.Lib
+namespace Serilog.Sinks.Spectre.Demo
 {
 	public class SpaceLibrary
 	{
-		readonly ILogger logger;
+		readonly Microsoft.Extensions.Logging.ILogger logger;
 
-		public SpaceLibrary(ILogger logger)
+		public SpaceLibrary(Microsoft.Extensions.Logging.ILogger logger)
 		{
 			this.logger = logger;
 		}

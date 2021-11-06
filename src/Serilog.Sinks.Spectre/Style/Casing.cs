@@ -1,4 +1,4 @@
-namespace sconsole.Sink.Style
+namespace Serilog.Sinks.Spectre.Style
 {
 	static class Casing
 	{

@@ -1,6 +1,4 @@
-using Spectre.Console;
-
-namespace sconsole.Sink.Style
+namespace Serilog.Sinks.Spectre.Style
 {
 	static class DefaultStyle
 	{

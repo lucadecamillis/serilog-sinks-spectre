@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using sconsole.Sink.Extensions;
 using Serilog.Events;
 using Serilog.Parsing;
+using Serilog.Sinks.Spectre.Extensions;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 
-namespace sconsole.Sink.Renderers
+namespace Serilog.Sinks.Spectre.Renderers
 {
 	public class MessageTemplateOutputTokenRenderer : ITemplateTokenRenderer
 	{
@@ -23,12 +23,12 @@ namespace sconsole.Sink.Renderers
 				if (token is TextToken t)
 				{
 					// Render text
-					yield return new Text(t.Text, Spectre.Console.Style.Plain);
+					yield return new Text(t.Text, global::Spectre.Console.Style.Plain);
 				}
 
 				if (token is PropertyToken p)
 				{
-					foreach(IRenderable pr in RenderProperty(logEvent, p))
+					foreach (IRenderable pr in RenderProperty(logEvent, p))
 					{
 						yield return pr;
 					}

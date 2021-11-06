@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
-using sconsole.Sink.Renderers;
 using Serilog.Core;
 using Serilog.Events;
 using Serilog.Formatting.Display;
 using Serilog.Parsing;
-using Serilog.Sinks.SpectreConsole.Sink.Extensions;
+using Serilog.Sinks.Spectre.Extensions;
+using Serilog.Sinks.Spectre.Renderers;
 using Spectre.Console.Rendering;
 
-namespace sconsole.Sink
+namespace Serilog.Sinks.Spectre
 {
 	public class SpectreConsoleSink : ILogEventSink
 	{
@@ -31,7 +31,7 @@ namespace sconsole.Sink
 			RenderableCollection collection = new RenderableCollection(items);
 
 			// Write them to the console
-			Spectre.Console.AnsiConsole.Write(collection);
+			global::Spectre.Console.AnsiConsole.Write(collection);
 		}
 
 		private static IEnumerable<ITemplateTokenRenderer> InitializeRenders(string outputTemplate)
