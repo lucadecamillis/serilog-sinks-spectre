@@ -1,4 +1,4 @@
-# Serilog.Sinks.SpectreConsole
+# Serilog.Sinks.Spectre ![Build status](https://github.com/lucadecamillis/serilog-sinks-spectre/actions/workflows/ci.yml/badge.svg?branch=master)
 
 Serilog sink for [Spectre.Console](https://spectreconsole.net/).
 
