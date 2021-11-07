@@ -8,7 +8,7 @@ namespace Serilog.Sinks.Spectre
 	{
 		const string DefaultConsoleOutputTemplate = "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}";
 
-		public static LoggerConfiguration StealthConsoleSink(
+		public static LoggerConfiguration Spectre(
 			this LoggerSinkConfiguration loggerConfiguration,
 			string outputTemplate = DefaultConsoleOutputTemplate)
 		{

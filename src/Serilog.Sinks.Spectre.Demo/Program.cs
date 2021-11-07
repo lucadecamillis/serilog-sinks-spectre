@@ -1,6 +1,7 @@
-﻿using Serilog;
-using Serilog.Core;
+﻿using Serilog.Core;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace Serilog.Sinks.Spectre.Demo
 {
@@ -28,11 +29,21 @@ namespace Serilog.Sinks.Spectre.Demo
 
 		private static Logger ConfigureLogger()
 		{
+			var configuration = new ConfigurationBuilder()
+				.SetBasePath(Directory.GetCurrentDirectory())
+				.AddJsonFile("appsettings.json")
+				.Build();
+
 			return new LoggerConfiguration()
-				.WriteTo
-				.StealthConsoleSink()
-				.MinimumLevel.Verbose()
+				.ReadFrom
+				.Configuration(configuration)
 				.CreateLogger();
+
+			/*return new LoggerConfiguration()
+				.WriteTo
+				.Spectre()
+				.MinimumLevel.Verbose()
+				.CreateLogger();*/
 		}
 	}
 }
