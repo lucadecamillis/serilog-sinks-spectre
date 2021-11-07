@@ -10,19 +10,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Restore dependencies
-      run: dotnet restore "src/Serilog.Sinks.Spectre"
-    - name: Build
-      run: dotnet build --configuration Release --no-restore "src/Serilog.Sinks.Spectre"
-    - name: Publish Serilog.Sinks.Spectre
-      uses: brandedoutcast/publish-nuget@v2.5.2
-      with:
-        PROJECT_FILE_PATH: src/Serilog.Sinks.Spectre/Serilog.Sinks.Spectre.csproj
-        VERSION_FILE_PATH: src/Serilog.Sinks.Spectre/Serilog.Sinks.Spectre.csproj
-        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-        NUGET_SOURCE: https://api.nuget.org
-        INCLUDE_SYMBOLS: true
+    
+    - name: Build solution and generate NuGet package
+      run: dotnet pack "src/Serilog.Sinks.Spectre" -c Release -o out
+
+    - name: Push generated package to GitHub registry
+      run: dotnet nuget push ./<project>/out/*.nupkg --skip-duplicate --no-symbols true
