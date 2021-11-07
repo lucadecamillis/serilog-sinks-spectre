@@ -27,17 +27,17 @@ The sink can also be configured via `appsettings.json` using the [_Microsoft.Ext
 
 ```json
 {
-	"Serilog": {
-		"MinimumLevel": "Debug",
-		"WriteTo": [
-			{
-				"Name": "Spectre",
-				"Args": {
-					"outputTemplate": "[{Timestamp:HH:mm:ss.fff} {Level:u3}] {Message:lj}{NewLine}{Exception}"
-				}
-			}
-		]
-	}
+    "Serilog": {
+        "MinimumLevel": "Debug",
+        "WriteTo": [
+            {
+                "Name": "Spectre",
+                "Args": {
+                    "outputTemplate": "[{Timestamp:HH:mm:ss.fff} {Level:u3}] {Message:lj}{NewLine}{Exception}"
+                }
+            }
+        ]
+    }
 }
 ```
 
