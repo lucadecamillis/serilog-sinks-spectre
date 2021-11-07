@@ -17,22 +17,34 @@ namespace Serilog.Sinks.Spectre.Renderers
 
 		public IEnumerable<IRenderable> Render(LogEvent logEvent)
 		{
+			string formatMoniker = GetFormatMoniker(logEvent);
+
+			yield return new Markup(formatMoniker);
+		}
+
+		private string GetFormatMoniker(LogEvent logEvent)
+		{
 			string levelMoniker = Style.LevelOutputFormat.GetLevelMoniker(
 				logEvent.Level,
 				format: this.token.Format);
 
-			string formatMoniker = logEvent.Level switch
+			switch (logEvent.Level)
 			{
-				LogEventLevel.Verbose => Style.DefaultStyle.HighlightVerbose(levelMoniker),
-				LogEventLevel.Debug => Style.DefaultStyle.HighlightDebug(levelMoniker),
-				LogEventLevel.Information => Style.DefaultStyle.HighlightInfo(levelMoniker),
-				LogEventLevel.Warning => Style.DefaultStyle.HighlightWarning(levelMoniker),
-				LogEventLevel.Error => Style.DefaultStyle.HighlightError(levelMoniker),
-				LogEventLevel.Fatal => Style.DefaultStyle.HighlightFatal(levelMoniker),
-				_ => levelMoniker
-			};
-
-			yield return new Markup(formatMoniker);
+				case LogEventLevel.Verbose:
+					return Style.DefaultStyle.HighlightVerbose(levelMoniker);
+				case LogEventLevel.Debug:
+					return Style.DefaultStyle.HighlightDebug(levelMoniker);
+				case LogEventLevel.Information:
+					return Style.DefaultStyle.HighlightInfo(levelMoniker);
+				case LogEventLevel.Warning:
+					return Style.DefaultStyle.HighlightWarning(levelMoniker);
+				case LogEventLevel.Error:
+					return Style.DefaultStyle.HighlightError(levelMoniker);
+				case LogEventLevel.Fatal:
+					return Style.DefaultStyle.HighlightFatal(levelMoniker);
+				default:
+					return levelMoniker;
+			}
 		}
 	}
 }

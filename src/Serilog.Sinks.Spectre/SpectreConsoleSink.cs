@@ -71,23 +71,39 @@ namespace Serilog.Sinks.Spectre
 			PropertyToken propertyToken,
 			out ITemplateTokenRenderer renderer)
 		{
-			renderer = propertyToken.PropertyName switch
-			{
-				OutputProperties.LevelPropertyName =>
-					new LevelTokenRenderer(propertyToken),
-				OutputProperties.NewLinePropertyName =>
-					new NewLineTokenRenderer(),
-				OutputProperties.ExceptionPropertyName =>
-					new ExceptionTokenRenderer(),
-				OutputProperties.MessagePropertyName =>
-					new MessageTemplateOutputTokenRenderer(propertyToken),
-				OutputProperties.TimestampPropertyName =>
-					new TimestampTokenRenderer(propertyToken),
-				_ =>
-					new PropertyTemplateRenderer(propertyToken)
-			};
-
+			renderer = GetPropertyRender(propertyToken);
 			return renderer != null;
+		}
+
+		private static ITemplateTokenRenderer GetPropertyRender(PropertyToken propertyToken)
+		{
+			switch (propertyToken.PropertyName)
+			{
+				case OutputProperties.LevelPropertyName:
+					{
+						return new LevelTokenRenderer(propertyToken);
+					}
+				case OutputProperties.NewLinePropertyName:
+					{
+						return new NewLineTokenRenderer();
+					}
+				case OutputProperties.ExceptionPropertyName:
+					{
+						return new ExceptionTokenRenderer();
+					}
+				case OutputProperties.MessagePropertyName:
+					{
+						return new MessageTemplateOutputTokenRenderer(propertyToken);
+					}
+				case OutputProperties.TimestampPropertyName:
+					{
+						return new TimestampTokenRenderer(propertyToken);
+					}
+				default:
+					{
+						return new PropertyTemplateRenderer(propertyToken);
+					}
+			}
 		}
 	}
 }
