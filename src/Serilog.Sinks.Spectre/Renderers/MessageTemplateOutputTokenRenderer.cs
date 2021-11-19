@@ -28,24 +28,11 @@ namespace Serilog.Sinks.Spectre.Renderers
 
 				if (token is PropertyToken p)
 				{
-					foreach (IRenderable pr in RenderProperty(logEvent, p))
+					foreach (IRenderable pr in RendersCommon.RenderProperty(logEvent, p))
 					{
 						yield return pr;
 					}
 				}
-			}
-		}
-
-		private IEnumerable<IRenderable> RenderProperty(LogEvent logEvent, PropertyToken token)
-		{
-			if (logEvent.Properties.ContainsKey(token.PropertyName))
-			{
-				string propValue = logEvent.Properties[token.PropertyName]
-					.ToString()
-					.Exec(Markup.Escape)
-					.Exec(Style.DefaultStyle.HighlightProp);
-
-				yield return new Markup(propValue);
 			}
 		}
 	}

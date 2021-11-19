@@ -22,7 +22,7 @@ namespace Serilog.Sinks.Spectre.Renderers
 			var value = new StructureValue(logEvent.Properties
 				.Select(p => new LogEventProperty(p.Key, p.Value)));
 
-			string propValue = value.ToString()
+			string propValue = value.ToString(token.Format, null)
 				.Exec(Markup.Escape)
 				.Exec(Style.DefaultStyle.HighlightMuted);
 

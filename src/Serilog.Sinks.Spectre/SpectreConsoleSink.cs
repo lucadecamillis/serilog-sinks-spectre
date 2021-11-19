@@ -99,9 +99,13 @@ namespace Serilog.Sinks.Spectre
 					{
 						return new TimestampTokenRenderer(propertyToken);
 					}
-				default:
+				case OutputProperties.PropertiesPropertyName:
 					{
 						return new PropertyTemplateRenderer(propertyToken);
+					}
+				default:
+					{
+						return new EventPropertyTokenRenderer(propertyToken);
 					}
 			}
 		}
