@@ -23,6 +23,14 @@ The format of events to the console can be modified using the `outputTemplate` c
 ```csharp
     .WriteTo.Spectre(outputTemplate: "[{Timestamp:HH:mm:ss.fff} {Level:u3}] {Message:lj}{NewLine}{Exception}")
 ```
+
+The sink configuration also supports the `restrictedToMinimumLevel` and `levelSwitch` parameters:
+
+```csharp
+    .WriteTo.Spectre(restrictedToMinimumLevel: LogEventLevel.Warning)
+    .WriteTo.Spectre(levelSwitch: new LoggingLevelSwitch(LogEventLevel.Warning))
+```
+
 The sink can also be configured via `appsettings.json` using the [_Microsoft.Extensions.Configuration_](https://github.com/serilog/serilog-settings-configuration) package:
 
 ```json
