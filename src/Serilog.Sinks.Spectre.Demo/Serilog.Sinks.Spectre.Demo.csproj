@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
     <PackageReference Include="Spectre.Console" Version="0.42.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.20" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.20" />
