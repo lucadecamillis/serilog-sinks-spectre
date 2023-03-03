@@ -16,15 +16,15 @@ namespace Serilog.Sinks.Spectre.Extensions
 			this.items = items;
 		}
 
-		public Measurement Measure(RenderContext context, int maxWidth)
+		public Measurement Measure(RenderOptions options, int maxWidth)
 		{
 			// Not used here
 			return new Measurement();
 		}
 
-		public IEnumerable<Segment> Render(RenderContext context, int maxWidth)
+		public IEnumerable<Segment> Render(RenderOptions options, int maxWidth)
 		{
-			foreach (Segment segment in this.items.SelectMany(i => i.Render(context, maxWidth)))
+			foreach (Segment segment in this.items.SelectMany(i => i.Render(options, maxWidth)))
 			{
 				yield return segment;
 			}
