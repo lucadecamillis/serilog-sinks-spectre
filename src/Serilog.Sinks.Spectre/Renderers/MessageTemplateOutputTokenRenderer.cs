@@ -22,8 +22,8 @@ namespace Serilog.Sinks.Spectre.Renderers
 			{
 				if (token is TextToken t)
 				{
-					// Render text
-					yield return new Text(t.Text, global::Spectre.Console.Style.Plain);
+					// Render message as markup
+					yield return new Markup(t.Text);
 				}
 
 				if (token is PropertyToken p)
