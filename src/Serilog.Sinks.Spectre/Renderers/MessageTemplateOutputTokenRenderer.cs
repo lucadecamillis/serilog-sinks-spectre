@@ -2,7 +2,6 @@ using Serilog.Events;
 using Serilog.Parsing;
 using Spectre.Console;
 using Spectre.Console.Rendering;
-using System.Collections.Generic;
 
 namespace Serilog.Sinks.Spectre.Renderers;
 

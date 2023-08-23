@@ -1,6 +1,4 @@
 using Serilog.Events;
-using System;
-using System.Collections.Generic;
 
 // ReSharper disable StringLiteralTypo
 

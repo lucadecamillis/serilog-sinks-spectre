@@ -4,8 +4,6 @@ using Serilog.Sinks.Spectre.Extensions;
 using Serilog.Sinks.Spectre.Style;
 using Spectre.Console;
 using Spectre.Console.Rendering;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Serilog.Sinks.Spectre.Renderers;
 

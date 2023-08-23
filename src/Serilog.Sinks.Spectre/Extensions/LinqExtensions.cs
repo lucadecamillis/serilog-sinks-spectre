@@ -1,5 +1,3 @@
-using System;
-
 namespace Serilog.Sinks.Spectre.Extensions;
 
 public static class LinqExtensions

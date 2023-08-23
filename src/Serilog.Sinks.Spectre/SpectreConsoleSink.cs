@@ -5,8 +5,6 @@ using Serilog.Parsing;
 using Serilog.Sinks.Spectre.Extensions;
 using Serilog.Sinks.Spectre.Renderers;
 using Spectre.Console;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Serilog.Sinks.Spectre;
 

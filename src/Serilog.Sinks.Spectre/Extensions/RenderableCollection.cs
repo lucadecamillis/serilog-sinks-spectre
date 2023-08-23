@@ -1,6 +1,4 @@
 using Spectre.Console.Rendering;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Serilog.Sinks.Spectre.Extensions;
 

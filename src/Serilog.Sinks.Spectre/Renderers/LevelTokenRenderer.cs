@@ -3,7 +3,6 @@ using Serilog.Parsing;
 using Serilog.Sinks.Spectre.Style;
 using Spectre.Console;
 using Spectre.Console.Rendering;
-using System.Collections.Generic;
 
 namespace Serilog.Sinks.Spectre.Renderers;
 
