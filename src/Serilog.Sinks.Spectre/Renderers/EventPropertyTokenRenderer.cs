@@ -1,22 +1,11 @@
-using System.Collections.Generic;
 using Serilog.Events;
 using Serilog.Parsing;
 using Spectre.Console.Rendering;
+using System.Collections.Generic;
 
-namespace Serilog.Sinks.Spectre.Renderers
+namespace Serilog.Sinks.Spectre.Renderers;
+
+public class EventPropertyTokenRenderer(PropertyToken token) : ITemplateTokenRenderer
 {
-	public class EventPropertyTokenRenderer : ITemplateTokenRenderer
-	{
-		readonly PropertyToken token;
-
-		public EventPropertyTokenRenderer(PropertyToken token)
-		{
-			this.token = token;
-		}
-
-		public IEnumerable<IRenderable> Render(LogEvent logEvent)
-		{
-			return RendersCommon.RenderProperty(logEvent, this.token);
-		}
-	}
+    public IEnumerable<IRenderable> Render(LogEvent logEvent) => RendersCommon.RenderProperty(logEvent, token);
 }

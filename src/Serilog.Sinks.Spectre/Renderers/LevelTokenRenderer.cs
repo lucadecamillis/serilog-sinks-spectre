@@ -1,50 +1,32 @@
-using System.Collections.Generic;
 using Serilog.Events;
 using Serilog.Parsing;
+using Serilog.Sinks.Spectre.Style;
 using Spectre.Console;
 using Spectre.Console.Rendering;
+using System.Collections.Generic;
 
-namespace Serilog.Sinks.Spectre.Renderers
+namespace Serilog.Sinks.Spectre.Renderers;
+
+public class LevelTokenRenderer(PropertyToken token) : ITemplateTokenRenderer
 {
-	public class LevelTokenRenderer : ITemplateTokenRenderer
-	{
-		readonly PropertyToken token;
+    public IEnumerable<IRenderable> Render(LogEvent logEvent)
+    {
+        var formatMoniker = GetFormatMoniker(logEvent);
+        yield return new Markup(formatMoniker);
+    }
 
-		public LevelTokenRenderer(PropertyToken token)
-		{
-			this.token = token;
-		}
-
-		public IEnumerable<IRenderable> Render(LogEvent logEvent)
-		{
-			string formatMoniker = GetFormatMoniker(logEvent);
-
-			yield return new Markup(formatMoniker);
-		}
-
-		private string GetFormatMoniker(LogEvent logEvent)
-		{
-			string levelMoniker = Style.LevelOutputFormat.GetLevelMoniker(
-				logEvent.Level,
-				format: this.token.Format);
-
-			switch (logEvent.Level)
-			{
-				case LogEventLevel.Verbose:
-					return Style.DefaultStyle.HighlightVerbose(levelMoniker);
-				case LogEventLevel.Debug:
-					return Style.DefaultStyle.HighlightDebug(levelMoniker);
-				case LogEventLevel.Information:
-					return Style.DefaultStyle.HighlightInfo(levelMoniker);
-				case LogEventLevel.Warning:
-					return Style.DefaultStyle.HighlightWarning(levelMoniker);
-				case LogEventLevel.Error:
-					return Style.DefaultStyle.HighlightError(levelMoniker);
-				case LogEventLevel.Fatal:
-					return Style.DefaultStyle.HighlightFatal(levelMoniker);
-				default:
-					return levelMoniker;
-			}
-		}
-	}
+    private string GetFormatMoniker(LogEvent logEvent)
+    {
+        var levelMoniker = LevelOutputFormat.GetLevelMoniker(logEvent.Level, token.Format);
+        return logEvent.Level switch
+        {
+            LogEventLevel.Verbose     => DefaultStyle.HighlightVerbose(levelMoniker),
+            LogEventLevel.Debug       => DefaultStyle.HighlightDebug(levelMoniker),
+            LogEventLevel.Information => DefaultStyle.HighlightInfo(levelMoniker),
+            LogEventLevel.Warning     => DefaultStyle.HighlightWarning(levelMoniker),
+            LogEventLevel.Error       => DefaultStyle.HighlightError(levelMoniker),
+            LogEventLevel.Fatal       => DefaultStyle.HighlightFatal(levelMoniker),
+            _                         => levelMoniker
+        };
+    }
 }

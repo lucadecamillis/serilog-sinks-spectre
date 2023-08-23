@@ -1,25 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <Description>C# Serilog sink for Spectre.Console</Description>
-    <AssemblyTitle>Serilog.Sinks.Spectre</AssemblyTitle>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Authors>Luca De Camillis</Authors>
-    <PackageId>Serilog.Sinks.Spectre</PackageId>
-    <PackageTags>serilog-sink;serilog;microsoft-extensions-logging;spectre-console</PackageTags>
-    <PackageDescription>C# Serilog sink for Spectre.Console</PackageDescription>
-    <PackageProjectUrl>https://github.com/lucadecamillis/serilog-sinks-spectre</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/lucadecamillis/serilog-sinks-spectre</RepositoryUrl>
-    <Version>0.4.1</Version>
+	<PropertyGroup>
+		<Description>C# Serilog sink for Spectre.Console</Description>
+		<AssemblyTitle>Serilog.Sinks.Spectre</AssemblyTitle>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<Authors>Luca De Camillis</Authors>
+		<PackageId>Serilog.Sinks.Spectre</PackageId>
+		<PackageTags>serilog-sink;serilog;microsoft-extensions-logging;spectre-console</PackageTags>
+		<PackageDescription>C# Serilog sink for Spectre.Console</PackageDescription>
+		<PackageProjectUrl>https://github.com/lucadecamillis/serilog-sinks-spectre</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/lucadecamillis/serilog-sinks-spectre</RepositoryUrl>
+		<Version>0.4.1</Version>
+		<LangVersion>preview</LangVersion>
 
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <DebugSymbols>true</DebugSymbols>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <IsPackable>true</IsPackable>
-  </PropertyGroup>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<DebugSymbols>true</DebugSymbols>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<IsPackable>true</IsPackable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Serilog" Version="3.0.1" />
-    <PackageReference Include="Spectre.Console" Version="0.47.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Serilog" Version="3.0.1" />
+		<PackageReference Include="Spectre.Console" Version="0.47.0" />
+	</ItemGroup>
 </Project>
